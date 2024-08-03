@@ -1,41 +1,35 @@
 import streamlit as st
 import pandas as pd
+import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
 
-# Cargar el dataset procesado
-@st.cache
-def load_data():
-    return pd.read_csv('https://raw.githubusercontent.com/jsaulme/datasets/main/Global_superstore2018__encoded.csv')
+st.title('Análisis Exploratorio de Datos del Dataset Iris')
 
-data = load_data()
+iris = load_iris()
+df = pd.DataFrame(data=iris.data, columns=iris.feature_names)
+df['target'] = iris.target
 
-# Título de la aplicación
-st.title('Análisis de Global SuperStore')
+st.header('Datos del Dataset Iris')
+st.write(df)
 
-# Mostrar datos
-st.subheader('Datos del Global SuperStore')
-st.write(data.head())
+st.header('Estadísticas Descriptivas')
+st.write(df.describe())
 
-# Análisis de pérdidas por categoría
-st.subheader('Análisis de Pérdidas por Categoría')
-losses = data[data['Profit'] < 0]
-losses_by_category = losses.groupby('Category')['Profit'].sum()
-st.bar_chart(losses_by_category)
+st.header('Gráficos')
+option = st.selectbox('Selecciona el tipo de gráfico',
+                      ['Histogramas', 'Pairplot'])
 
-# Filtrar datos por categoría
-category = st.selectbox('Selecciona una categoría', data['Category'].unique())
-filtered_data = data[data['Category'] == category]
-st.write(f'Datos filtrados por la categoría {category}')
-st.write(filtered_data)
+if option == 'Histogramas':
+    st.subheader('Histogramas')
+    fig, axes = plt.subplots(2, 2, figsize=(10, 8))
+    sns.histplot(df.iloc[:, 0], ax=axes[0, 0], kde=True)
+    sns.histplot(df.iloc[:, 1], ax=axes[0, 1], kde=True)
+    sns.histplot(df.iloc[:, 2], ax=axes[1, 0], kde=True)
+    sns.histplot(df.iloc[:, 3], ax=axes[1, 1], kde=True)
+    st.pyplot(fig)
 
-# Gráfico de ventas vs ganancia
-st.subheader('Análisis Gráfico de Ventas vs Ganancia')
-fig, ax = plt.subplots()
-ax.scatter(data['Sales'], data['Profit'])
-ax.set_xlabel('Ventas')
-ax.set_ylabel('Ganancia')
-st.pyplot(fig)
-
-# Otras visualizaciones y análisis
-# Añadir aquí cualquier otro análisis que hayas realizado
-
+elif option == 'Pairplot':
+    st.subheader('Pairplot')
+    fig = sns.pairplot(df, hue='target')
+    st.pyplot(fig)
