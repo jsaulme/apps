@@ -2,7 +2,7 @@
 
 ¡Bienvenido al repositorio **Apps**! 🚀
 
-Este repositorio tiene como propósito almacenar todas las aplicaciones que se vayan construyendo a lo largo del tiempo. Aquí encontrarás una colección de proyectos que abarcan diferentes tecnologías y plataformas. 🌐
+Este repositorio tiene como propósito almacenar todas las aplicaciones que se vayan construyendo a lo largo del tiempo y con el conocimiento adquirido. Aquí encontrarás una colección de proyectos que abarcan diferentes tecnologías y plataformas. 🌐
 
 ## 📂 Estructura del Repositorio
 
