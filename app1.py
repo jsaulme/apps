@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 # Cargar el dataset procesado
 @st.cache
 def load_data():
-    return pd.read_csv('ruta_a_tu_dataset_procesado.csv')
+    return pd.read_csv('https://raw.githubusercontent.com/jsaulme/datasets/main/Global_superstore2018__encoded.csv')
 
 data = load_data()
 
